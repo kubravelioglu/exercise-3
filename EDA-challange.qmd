@@ -50,9 +50,7 @@ p <- ggplot(d, aes(x = log(Move), y = log(DayLength_km))) +
   facet_wrap(~ Family) +
   labs(x = "Log(Time Spent Moving)", 
        y = "Log(Day Range Length (km))", 
-       title = "Day Range Length vs Time Spent Moving in Primate Species") +
-  theme_minimal()  #
-
+       title = "Day Range Length vs Time Spent Moving in Primate Species")
 p 
 ```
 
