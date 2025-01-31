@@ -1,0 +1,61 @@
+---
+title: "EDA-challange"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+f <- "https://raw.githubusercontent.com/difiore/ada-datasets/main/data-wrangling.csv"
+d <- read_csv(f, col_names = TRUE )
+names(d)
+colnames(d)
+glimpse(d)
+```
+
+```{r}
+# 1. Create BSD 
+d$BSD <- d$Body_mass_male_mean / d$Body_mass_female_mean
+
+# 2. Create Sex Ratio 
+d$sex_ratio <- d$AdultFemale / d$AdultMales
+
+# 3. Create Defensibility Index 
+d$DI <- d$DayLength_km / d$HomeRange_km2
+
+head(d[, c("Scientific_Name", "BSD", "sex_ratio", "DI")])
+
+#homerange diameter
+d$HomeRangeDiameter <- 2 * sqrt(d$HomeRange_km2 / pi)
+```
+
+```{r}
+library(ggplot2)
+
+p <- ggplot(d, aes(x = Move, y = DayLength_km)) +
+  geom_jitter(color = "blue", width = 0.1, na.rm = TRUE) +  # Added color and width
+  facet_wrap(~ Family) +
+  labs(x = "Time Spent Moving", y = "Day Range Length (km)", 
+       title = "Day Range Length vs Time Spent Movement in Primate Species")
+p
+
+ggsave("plot.png", plot = p, width = 8, height = 6, dpi = 300)
+
+```
+
+```{r}
+
+p <- ggplot(d, aes(x = log(Move), y = log(DayLength_km))) + 
+  geom_jitter(color = "blue", width = 0.1, na.rm = TRUE) +  
+  facet_wrap(~ Family) +
+  labs(x = "Log(Time Spent Moving)", 
+       y = "Log(Day Range Length (km))", 
+       title = "Day Range Length vs Time Spent Moving in Primate Species") +
+  theme_minimal()  #
+
+p 
+```
+
+
+
+
