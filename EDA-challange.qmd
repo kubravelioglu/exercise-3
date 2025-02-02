@@ -3,16 +3,18 @@ title: "EDA-challange"
 format: html
 editor: visual
 ---
+__STEP1__
+
 
 ```{r}
 library(tidyverse)
 f <- "https://raw.githubusercontent.com/difiore/ada-datasets/main/data-wrangling.csv"
 d <- read_csv(f, col_names = TRUE )
-names(d)
+
 colnames(d)
 glimpse(d)
 ```
-
+__1,2,3__
 ```{r}
 # 1. Create BSD 
 d$BSD <- d$Body_mass_male_mean / d$Body_mass_female_mean
@@ -28,34 +30,163 @@ head(d[, c("Scientific_Name", "BSD", "sex_ratio", "DI")])
 #homerange diameter
 d$HomeRangeDiameter <- 2 * sqrt(d$HomeRange_km2 / pi)
 ```
+___4___
+```{r}
+# Overall
+library(ggplot2)
+
+p <- ggplot(d, aes(x = Move, y = DayLength_km)) + 
+  geom_jitter(color = "orange", width = 0.1, na.rm = TRUE) +  
+  labs(x = "Time Spent Moving", y = "Day Range Length (km)", 
+       title = "Day Range Length vs Time Spent Movement in Primate Species")  
+
+p  
+
+# By family
+p <- ggplot(d, aes(x = Move, y = DayLength_km, color = Family)) + 
+  geom_jitter(width = 0.1, na.rm = TRUE) + 
+  facet_wrap(~ Family) +  # Add the missing + here
+  labs(x = "Time Spent Moving", y = "Day Range Length (km)", 
+       title = "Day Range Length vs Time Spent Movement in Primate Species")  
+
+p
+
+
+```
+
+
+___Do species that spend more time moving travel farther overall?___
+
+Looking at the overall trend across all families, it does not seem strong relationship between time spend moving and day range length. Some families, like Cercopithecidae, show a broader spread, with some species having high day range lengths despite a range of movement times.Other families, such as Atelidae and Lemuridae, seem to have relatively short travel distances regardless of movement time.
+
+___How about within any particular primate family?___
+
+Cercopithecidae and Hominidae appear to have species that exhibit higher day range lengths when they spend more time moving.Lepilemuridae families shows very little variation in movement.It is hard to see a clear trend.
+
+___Should you transform either of these variables?___
+
+Yes, transformation could be useful, particularly if the variables are skewed.
+
+
+#Plot-Transformed variables
 
 ```{r}
 library(ggplot2)
-
-p <- ggplot(d, aes(x = Move, y = DayLength_km)) +
-  geom_jitter(color = "blue", width = 0.1, na.rm = TRUE) +  # Added color and width
+p <- ggplot(d, aes(x = log(Move), y = log(DayLength_km), color = Family)) +  #to make different color 
+  geom_jitter(width = 0.1, na.rm = TRUE) +  
   facet_wrap(~ Family) +
-  labs(x = "Time Spent Moving", y = "Day Range Length (km)", 
-       title = "Day Range Length vs Time Spent Movement in Primate Species")
+  labs(x = "log(Time Spent Moving)", 
+       y = "log(Day Range Length (km))", 
+       title = "Day Range Length vs Time Spent Moving in Primate Species")
+p
+```
+___5___
+
+```{r}
+#Overall
+
+p <- ggplot(d, aes(x = MeanGroupSize, y = DayLength_km)) +
+  geom_jitter(color= "orange", width = 0.1, na.rm = TRUE) +  
+    labs(x = "Mean Group Size", 
+       y = "Day Range Length (km)", 
+       title = "Day Range Length vs Group Size in Primate Species")
 p
 
-ggsave("plot.png", plot = p, width = 8, height = 6, dpi = 300)
+#by family
+p <- ggplot(d, aes(x = MeanGroupSize, y = DayLength_km, color = Family)) +
+  geom_jitter(width = 0.1, na.rm = TRUE) +  
+  facet_wrap(~ Family) +
+  labs(x = "Mean Group Size", 
+       y = "Day Range Length (km)", 
+       title = "Day Range Length vs Group Size in Primate Species")
 
+p
 ```
+
+___Do species in larger groups travel farther overall?___
+
+There seems to be a positive trend, especially in some families such as Cercopithecidae and Hylobatidae, where larger group sizes are associated with longer day ranges.However, Atelidae and Pitheciidae's group size variation does not show strong correlation with day range length.This supports that group size variation mat not fully explain differences in day range alone.
+
+___How about within specific primate families?___
+
+In Cercopithecidae, there's a noticeable increase in day range length with group size.Hylobatidae, a similar trend is observed, but with fewer data points.For Atelidae, Pitheciidae, and Lemuridae, the relationship appears weaker.
+
+___Should we transform either variable?___
+
+Day range length (km) is highly right-skewed. A log transformation helps normalize the distribution.
+
+___Plot-Transformed variables___
+
+```{r}
+p <- ggplot(d, aes(x = log(MeanGroupSize), y = log(DayLength_km), color = Family)) +
+  geom_jitter(width = 0.1, na.rm = TRUE) +  
+  facet_wrap(~ Family) +
+  labs(x = "Log(Mean Group Size)", y = "Log(Day Range Length (km))", 
+       title = "Log-Transformed Day Range Length vs. Group Size in Primate Species") 
+p
+```
+
+#After log-transforming both variables, the relationship between group size and day range length becomes clearer. There is a positive trend in families like Cercopithecidae and Hylobatidae, suggesting a stronger correlation between group size and movement distance. The transformation makes patterns easier to interpret.
+
+___6___
+#Overall
+```{r}
+p <- ggplot(d, aes(x = BSD, y = Canine_Dimorphism)) +
+  geom_jitter(color = "blue" , width = 0.1, na.rm = TRUE) +
+  labs(x = "Body Size Dimorphism (BSD)", y = "Canine Size Dimorphism") 
+ggsave("overall.png")
+p
+```
+
+#Plot by family
+
+```{r}
+p <- ggplot(d, aes(x = log(BSD), y = log(Canine_Dimorphism), color = Family)) +
+  geom_jitter(width = 0.1, na.rm = TRUE) +  
+  facet_wrap(~ Family) +
+  labs(x = "Log(Body Size Dimorphism (BSD))", y = "Log(Canine Size Dimorphism)")
+
+ggsave("family.png")
+p
+```
+
+__7__
 
 ```{r}
 
-p <- ggplot(d, aes(x = log(Move), y = log(DayLength_km))) + 
-  geom_jitter(color = "blue", width = 0.1, na.rm = TRUE) +  
-  facet_wrap(~ Family) +
-  labs(x = "Log(Time Spent Moving)", 
-       y = "Log(Day Range Length (km))", 
-       title = "Day Range Length vs Time Spent Moving in Primate Species") +
-  theme_minimal()  #
+d <- mutate(d, diet_strategy = ifelse(Fruit >= 50, "frugivore", 
+                                      ifelse(Leaves >= 50, "folivore", 
+                                             ifelse(Fruit < 50 & Leaves < 50, "omnivore", NA))))
 
-p 
+
+glimpse(d)
+
+# Cleaning NA
+d_clean <- d[complete.cases(d[, c("diet_strategy", "MeanGroupSize")]), ]
+glimpse(d_clean)
+
+# Boxplot
+p <- ggplot(d_clean, aes(x = diet_strategy, y = log(MeanGroupSize))) +
+  geom_boxplot() +
+  geom_jitter(color = "blue", width = 0.1) + 
+  labs(x = "Diet Strategy", y = "Log of Mean Group Size") +
+  theme(axis.text.x = element_text(angle = 90))
+
+p
+
 ```
 
+___8___
 
+```{r}
 
+s <- mutate(d, Binomial = paste(Genus, Species, sep = " ")) %>%
+     select(Binomial, Family, Brain_Size_Species_Mean, Body_mass_male_mean) %>%
+     group_by(Family) %>%
+     summarise(
+     avg_BrainSize = mean(Brain_Size_Species_Mean, na.rm = TRUE),
+     avg_BodyMass = mean(Body_mass_male_mean, na.rm = TRUE)) %>%
+     arrange(avg_BrainSize)
 
+s
+```
