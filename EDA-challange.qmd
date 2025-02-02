@@ -154,6 +154,7 @@ __7__
 
 ```{r}
 
+<<<<<<< HEAD
 d <- mutate(d, diet_strategy = ifelse(Fruit >= 50, "frugivore", 
                                       ifelse(Leaves >= 50, "folivore", 
                                              ifelse(Fruit < 50 & Leaves < 50, "omnivore", NA))))
@@ -174,6 +175,15 @@ p <- ggplot(d_clean, aes(x = diet_strategy, y = log(MeanGroupSize))) +
 
 p
 
+=======
+p <- ggplot(d, aes(x = log(Move), y = log(DayLength_km))) + 
+  geom_jitter(color = "blue", width = 0.1, na.rm = TRUE) +  
+  facet_wrap(~ Family) +
+  labs(x = "Log(Time Spent Moving)", 
+       y = "Log(Day Range Length (km))", 
+       title = "Day Range Length vs Time Spent Moving in Primate Species")
+p 
+>>>>>>> adc82582d7e48c74771af72c079c8aa00901fdbd
 ```
 
 ___8___
