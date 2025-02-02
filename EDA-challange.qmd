@@ -3,8 +3,8 @@ title: "EDA-challange"
 format: html
 editor: visual
 ---
-__STEP1__
 
+**STEP1**
 
 ```{r}
 library(tidyverse)
@@ -14,7 +14,9 @@ d <- read_csv(f, col_names = TRUE )
 colnames(d)
 glimpse(d)
 ```
-__1,2,3__
+
+**1,2,3**
+
 ```{r}
 # 1. Create BSD 
 d$BSD <- d$Body_mass_male_mean / d$Body_mass_female_mean
@@ -30,7 +32,9 @@ head(d[, c("Scientific_Name", "BSD", "sex_ratio", "DI")])
 #homerange diameter
 d$HomeRangeDiameter <- 2 * sqrt(d$HomeRange_km2 / pi)
 ```
-___4___
+
+***4***
+
 ```{r}
 # Overall
 library(ggplot2)
@@ -51,22 +55,19 @@ p <- ggplot(d, aes(x = Move, y = DayLength_km, color = Family)) +
 
 p
 
-
 ```
 
-
-___Do species that spend more time moving travel farther overall?___
+***Do species that spend more time moving travel farther overall?***
 
 Looking at the overall trend across all families, it does not seem strong relationship between time spend moving and day range length. Some families, like Cercopithecidae, show a broader spread, with some species having high day range lengths despite a range of movement times.Other families, such as Atelidae and Lemuridae, seem to have relatively short travel distances regardless of movement time.
 
-___How about within any particular primate family?___
+***How about within any particular primate family?***
 
 Cercopithecidae and Hominidae appear to have species that exhibit higher day range lengths when they spend more time moving.Lepilemuridae families shows very little variation in movement.It is hard to see a clear trend.
 
-___Should you transform either of these variables?___
+***Should you transform either of these variables?***
 
 Yes, transformation could be useful, particularly if the variables are skewed.
-
 
 #Plot-Transformed variables
 
@@ -80,7 +81,8 @@ p <- ggplot(d, aes(x = log(Move), y = log(DayLength_km), color = Family)) +  #to
        title = "Day Range Length vs Time Spent Moving in Primate Species")
 p
 ```
-___5___
+
+***5***
 
 ```{r}
 #Overall
@@ -103,19 +105,19 @@ p <- ggplot(d, aes(x = MeanGroupSize, y = DayLength_km, color = Family)) +
 p
 ```
 
-___Do species in larger groups travel farther overall?___
+***Do species in larger groups travel farther overall?***
 
 There seems to be a positive trend, especially in some families such as Cercopithecidae and Hylobatidae, where larger group sizes are associated with longer day ranges.However, Atelidae and Pitheciidae's group size variation does not show strong correlation with day range length.This supports that group size variation mat not fully explain differences in day range alone.
 
-___How about within specific primate families?___
+***How about within specific primate families?***
 
 In Cercopithecidae, there's a noticeable increase in day range length with group size.Hylobatidae, a similar trend is observed, but with fewer data points.For Atelidae, Pitheciidae, and Lemuridae, the relationship appears weaker.
 
-___Should we transform either variable?___
+***Should we transform either variable?***
 
 Day range length (km) is highly right-skewed. A log transformation helps normalize the distribution.
 
-___Plot-Transformed variables___
+***Plot-Transformed variables***
 
 ```{r}
 p <- ggplot(d, aes(x = log(MeanGroupSize), y = log(DayLength_km), color = Family)) +
@@ -128,8 +130,8 @@ p
 
 #After log-transforming both variables, the relationship between group size and day range length becomes clearer. There is a positive trend in families like Cercopithecidae and Hylobatidae, suggesting a stronger correlation between group size and movement distance. The transformation makes patterns easier to interpret.
 
-___6___
-#Overall
+***6*** #Overall
+
 ```{r}
 p <- ggplot(d, aes(x = BSD, y = Canine_Dimorphism)) +
   geom_jitter(color = "blue" , width = 0.1, na.rm = TRUE) +
@@ -150,7 +152,7 @@ ggsave("family.png")
 p
 ```
 
-__7__
+**7**
 
 ```{r}
 d <- mutate(d, diet_strategy = ifelse(Fruit >= 50, "frugivore", 
@@ -176,7 +178,7 @@ p
 
 ```
 
-___8___
+***8***
 
 ```{r}
 
