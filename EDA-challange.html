@@ -204,13 +204,12 @@ Attaching package: 'dbplyr'</code></pre>
 
     ident, sql</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(Move), <span class="at">y =</span> <span class="fu">log</span>(DayLength_km),</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"orange"</span>))  </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"log(Move)"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"log(DayLength_km)"</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">fullrange =</span><span class="cn">FALSE</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(Move), <span class="at">y =</span> <span class="fu">log</span>(DayLength_km)))  </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"log(Move)"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"log(DayLength_km)"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_point</span>( <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">fullrange =</span><span class="cn">FALSE</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -242,26 +241,20 @@ Attaching package: 'dbplyr'</code></pre>
 </div>
 </div>
 </div>
-<p><strong><em>Do species that spend more time moving travel farther overall?</em></strong></p>
-<p>Looking at the overall trend across all families,species that live in larger groups travel farther.</p>
-<p><strong><em>How about within any particular primate family?</em></strong></p>
-<p>There are positive correlation in &amp; species. Hylobatidae and Atilidae have positive correlation.</p>
-<p><strong><em>Should you transform either of these variables?</em></strong></p>
-<p>Yes, transformated values make clear results for the population distrubition</p>
+<p><strong><em>Do species that spend more time moving travel farther overall?</em></strong> Looking at the overall trend across all families, the linear regression line with a shaded confidence interval indicates that species that spend more time moving tend to travel farther overall.</p>
+<p><strong><em>How about within any particular primate family?</em></strong> There are positive correlation in species. Atelidae and Cebidae shows a weak positive trend is visible, suggesting that more movement is associated with greater travel distance.</p>
+<p><strong><em>Should you transform either of these variables?</em></strong> Yes, transformated values make clear results for the population distrubition.</p>
 <p><strong><em>5</em></strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Overall</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(MeanGroupSize),</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">y =</span>    <span class="fu">log</span>(DayLength_km), </span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">color =</span> <span class="st">"blue"</span>))</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"MeanGroupSIze)"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"DayLength_km)"</span>)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">fullrange =</span><span class="cn">FALSE</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(MeanGroupSize), <span class="at">y =</span><span class="fu">log</span>(DayLength_km)))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"MeanGroupSIze)"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"DayLength_km)"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_point</span>( <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">fullrange =</span><span class="cn">FALSE</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -293,25 +286,20 @@ Attaching package: 'dbplyr'</code></pre>
 </div>
 </div>
 </div>
-<p><strong><em>Do species in larger groups travel farther overall?</em></strong> Looking at the overall trend across all families,species that live in larger groups travel farther.</p>
-<p><strong><em>How about within specific primate families?</em></strong></p>
-<p>In Cercopithecidae, there’s a noticeable increase in day range length with group size.</p>
-<p><strong><em>Should we transform either variable?</em></strong></p>
-<p>Yes, transformated values make clear results for the population distrubition</p>
+<p><strong><em>Do species in larger groups travel farther overall?</em></strong> Looking at the overall trend across all families, the linear regression line with a shaded confidence interval indicates that species that spend more time moving tend to travel farther overall.</p>
+<p><strong><em>How about within specific primate families?</em></strong> In the Cercopithecidae family, as group size increases, the daily travel distance also tends to increase significantly.</p>
+<p><strong><em>Should we transform either variable?</em></strong> Yes, transformated values make clear results for the population distrubition</p>
 <p><strong><em>6</em></strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Overall</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(Canine_Dimorphism),</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">y =</span>    <span class="fu">log</span>(BSD), </span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">color =</span> <span class="st">"blue"</span>))</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"Body Size Dimorphism"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Canine_Dimorphism"</span>)</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">fullrange =</span><span class="cn">FALSE</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(Canine_Dimorphism), <span class="at">y =</span> <span class="fu">log</span>(BSD)))</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"Body Size Dimorphism"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Canine_Dimorphism"</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_point</span>( <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">fullrange =</span><span class="cn">FALSE</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -343,16 +331,13 @@ Attaching package: 'dbplyr'</code></pre>
 </div>
 </div>
 </div>
-<p><strong>Do taxa with greater size dimorphism also show greater canine dimorphism?</strong></p>
-<p>Yes. Taxa with greater size dimorphism shows greater canine dimorphism.</p>
+<p><strong>Do taxa with greater size dimorphism also show greater canine dimorphism?</strong> Yes, taxa with greater size dimorphism generally exhibit greater canine dimorphism.</p>
 <p><strong>7</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">mutate</span>(d, <span class="at">diet_strategy =</span> <span class="fu">ifelse</span>(Fruit <span class="sc">&gt;=</span> <span class="dv">50</span>, <span class="st">"frugivore"</span>, </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">ifelse</span>(Leaves <span class="sc">&gt;=</span> <span class="dv">50</span>, <span class="st">"folivore"</span>, </span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                                             <span class="fu">ifelse</span>(Fruit <span class="sc">&lt;</span> <span class="dv">50</span> <span class="sc">&amp;</span> Leaves <span class="sc">&lt;</span> <span class="dv">50</span>, <span class="st">"omnivore"</span>, <span class="cn">NA</span>))))</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 213
 Columns: 24
@@ -383,34 +368,18 @@ $ diet_strategy           &lt;chr&gt; NA, NA, "frugivore", "folivore", "folivore
 </div>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaning NA</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>d_clean <span class="ot">&lt;-</span> d[<span class="fu">complete.cases</span>(d[, <span class="fu">c</span>(<span class="st">"diet_strategy"</span>, <span class="st">"MeanGroupSize"</span>)]), ]</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(d_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d_clean[, <span class="fu">c</span>(<span class="st">"diet_strategy"</span>, <span class="st">"MeanGroupSize"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 95
-Columns: 24
-$ Scientific_Name         &lt;chr&gt; "Alouatta_belzebul", "Alouatta_caraya", "Aloua…
-$ Family                  &lt;chr&gt; "Atelidae", "Atelidae", "Atelidae", "Atelidae"…
-$ Genus                   &lt;chr&gt; "Alouatta", "Alouatta", "Alouatta", "Alouatta"…
-$ Species                 &lt;chr&gt; "belzebul", "caraya", "guariba", "palliata", "…
-$ Brain_Size_Species_Mean &lt;dbl&gt; 52.84, 52.63, 51.70, 49.88, 51.13, 55.22, 20.6…
-$ Body_mass_male_mean     &lt;dbl&gt; 7270.0, 6525.0, 5800.0, 7150.0, 11400.0, 6690.…
-$ Body_mass_female_mean   &lt;dbl&gt; 5520.0, 4240.0, 4550.0, 5350.0, 6430.0, 5210.0…
-$ MeanGroupSize           &lt;dbl&gt; 7.000, 8.000, 6.530, 12.000, 6.600, 7.100, 3.1…
-$ AdultMales              &lt;dbl&gt; 1.000, 2.300, 1.370, 2.900, 1.925, 1.700, 1.00…
-$ AdultFemale             &lt;dbl&gt; 1.000, 3.300, 2.200, 6.300, 2.175, 2.200, 1.00…
-$ GR_MidRangeLat_dd       &lt;dbl&gt; -6.80, -20.34, -21.13, 6.95, 18.80, 0.68, -17.…
-$ Precip_Mean_mm          &lt;dbl&gt; 1643.5, 1166.4, 1332.3, 1852.6, 1341.3, 1823.4…
-$ Temp_Mean_degC          &lt;dbl&gt; 24.9, 22.9, 19.6, 23.7, 25.1, 25.1, 24.6, 25.2…
-$ HomeRange_km2           &lt;dbl&gt; NA, NA, 0.030, 0.190, 0.300, 0.100, 0.095, 0.1…
-$ DayLength_km            &lt;dbl&gt; NA, 0.400, NA, 0.320, NA, 0.550, NA, 0.708, 0.…
-$ Fruit                   &lt;dbl&gt; 57.3, 23.8, 5.2, 33.1, 40.8, 40.0, 45.0, 60.0,…
-$ Leaves                  &lt;chr&gt; "19.1", "67.7", "73", "56.4", "45.1", "48.1", …
-$ Fauna                   &lt;chr&gt; "0", "0", "0", "0", "0", "0", NA, NA, "15", "0…
-$ Canine_Dimorphism       &lt;dbl&gt; 1.811, 1.542, 1.783, 1.703, 1.109, 1.464, NA, …
-$ Feed                    &lt;dbl&gt; 13.75, 15.90, 18.33, 17.94, 24.40, 12.70, NA, …
-$ Move                    &lt;dbl&gt; 18.75, 17.60, 14.33, 12.32, 9.80, 6.20, NA, NA…
-$ Rest                    &lt;dbl&gt; 57.30, 61.60, 64.37, 66.14, 61.90, 78.50, NA, …
-$ Social                  &lt;dbl&gt; 10.00, 4.90, 3.00, 3.64, 3.80, 2.50, NA, NA, N…
-$ diet_strategy           &lt;chr&gt; "frugivore", "folivore", "folivore", "folivore…</code></pre>
+<pre><code># A tibble: 6 × 2
+  diet_strategy MeanGroupSize
+  &lt;chr&gt;                 &lt;dbl&gt;
+1 frugivore              7   
+2 folivore               8   
+3 folivore               6.53
+4 folivore              12   
+5 omnivore               6.6 
+6 omnivore               7.1 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d_clean, <span class="fu">aes</span>(<span class="at">x =</span> diet_strategy, <span class="at">y =</span> <span class="fu">log</span>(MeanGroupSize))) <span class="sc">+</span></span>
@@ -429,7 +398,7 @@ $ diet_strategy           &lt;chr&gt; "frugivore", "folivore", "folivore", "foli
 </div>
 </div>
 <p><strong>Do frugivores live in larger groups than folivores?</strong></p>
-<p>No.&nbsp;Frugivores live in smaller groups than foliveres.</p>
+<p>Yes, based on the boxplot frugivores tend to live in larger groups than folivores.</p>
 <p><strong><em>8</em></strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">mutate</span>(d, <span class="at">Binomial =</span> <span class="fu">paste</span>(Genus, Species, <span class="at">sep =</span> <span class="st">" "</span>)) <span class="sc">%&gt;%</span></span>
@@ -439,8 +408,7 @@ $ diet_strategy           &lt;chr&gt; "frugivore", "folivore", "folivore", "foli
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">avg_BrainSize =</span> <span class="fu">mean</span>(Brain_Size_Species_Mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">avg_BodyMass =</span> <span class="fu">mean</span>(Body_mass_male_mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">arrange</span>(avg_BrainSize)</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14 × 3
    Family          avg_BrainSize avg_BodyMass

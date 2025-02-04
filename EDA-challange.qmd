@@ -36,32 +36,26 @@ DI <- d$DayLength_km / (sqrt(d$HomeRange_km2 / pi))
 library(ggplot2)
 library(dbplyr)
 
-p <- ggplot(data = d, aes(x = log(Move), y = log(DayLength_km),
-    color = "orange"))  
+p <- ggplot(data = d, aes(x = log(Move), y = log(DayLength_km)))  
 p <- p + xlab("log(Move)") + ylab("log(DayLength_km)")
-p <- p + geom_point(na.rm = TRUE)
+p <- p + geom_point( color = "orange", na.rm = TRUE)
 p <- p + theme(legend.position = "bottom", legend.title = element_blank())
 p <- p + geom_smooth(method = "lm", fullrange =FALSE, na.rm =TRUE)
 p
 
-
 # By family
 p <- p + facet_wrap(~Family)
      p + theme(legend.position = "none")
-
 ```
 
 ***Do species that spend more time moving travel farther overall?***
-
-Looking at the overall trend across all families,species that live in larger groups travel farther.
+Looking at the overall trend across all families, the linear regression line with a shaded confidence interval indicates that species that spend more time moving tend to travel farther overall.
 
 ***How about within any particular primate family?***
-
-There are positive correlation in & species. Hylobatidae and Atilidae have positive correlation.
+There are positive correlation in species. Atelidae and Cebidae shows a weak positive trend is visible, suggesting that more movement is associated with greater travel distance.
 
 ***Should you transform either of these variables?***
-
-Yes, transformated values make clear results for the population distrubition
+Yes, transformated values make clear results for the population distrubition.
 
 ***5***
 
@@ -69,12 +63,9 @@ Yes, transformated values make clear results for the population distrubition
 #Overall
 
 library(ggplot2)
-p <- ggplot(data = d, aes(x = log(MeanGroupSize),
-                          y =    log(DayLength_km), 
-                          color = "blue"))
-     
+p <- ggplot(data = d, aes(x = log(MeanGroupSize), y =log(DayLength_km)))
 p <- p + xlab("MeanGroupSIze)") + ylab("DayLength_km)")
-p <- p + geom_point(na.rm = TRUE)
+p <- p + geom_point( color = "orange", na.rm = TRUE)
 p <- p + theme(legend.position = "bottom", legend.title = element_blank())
 p <- p + geom_smooth(method = "lm", fullrange =FALSE, na.rm =TRUE)
 p
@@ -85,29 +76,23 @@ p <- p + facet_wrap(~Family)
 ```
 
 ***Do species in larger groups travel farther overall?***
-Looking at the overall trend across all families,species that live in larger groups travel farther.
+Looking at the overall trend across all families, the linear regression line with a shaded confidence interval indicates that species that spend more time moving tend to travel farther overall.
  
 ***How about within specific primate families?***
-
-In Cercopithecidae, there's a noticeable increase in day range length with group size.
+In the Cercopithecidae family, as group size increases, the daily travel distance also tends to increase significantly.
 
 ***Should we transform either variable?***
-
 Yes, transformated values make clear results for the population distrubition
 
-
-
 ***6*** 
+
 ```{r}
 ##Overall
 
 library(ggplot2)
-p <- ggplot(data = d, aes(x = log(Canine_Dimorphism),
-                          y =    log(BSD), 
-                          color = "blue"))
-     
+p <- ggplot(data = d, aes(x = log(Canine_Dimorphism), y = log(BSD)))
 p <- p + xlab("Body Size Dimorphism") + ylab("Canine_Dimorphism")
-p <- p + geom_point(na.rm = TRUE)
+p <- p + geom_point( color = "orange", na.rm = TRUE)
 p <- p + theme(legend.position = "bottom", legend.title = element_blank())
 p <- p + geom_smooth(method = "lm", fullrange =FALSE, na.rm =TRUE)
 p
@@ -118,9 +103,7 @@ p <- p + facet_wrap(~Family)
 ```
 
 **Do taxa with greater size dimorphism also show greater canine dimorphism?**
-
-Yes. Taxa with greater size dimorphism shows greater canine dimorphism.
-
+Yes, taxa with greater size dimorphism generally exhibit greater canine dimorphism.
 
 **7**
 
@@ -128,13 +111,12 @@ Yes. Taxa with greater size dimorphism shows greater canine dimorphism.
 d <- mutate(d, diet_strategy = ifelse(Fruit >= 50, "frugivore", 
                                       ifelse(Leaves >= 50, "folivore", 
                                              ifelse(Fruit < 50 & Leaves < 50, "omnivore", NA))))
-
-
 glimpse(d)
 
 # Cleaning NA
 d_clean <- d[complete.cases(d[, c("diet_strategy", "MeanGroupSize")]), ]
-glimpse(d_clean)
+
+head(d_clean[, c("diet_strategy", "MeanGroupSize")])
 
 # Boxplot
 p <- ggplot(d_clean, aes(x = diet_strategy, y = log(MeanGroupSize))) +
@@ -144,11 +126,12 @@ p <- ggplot(d_clean, aes(x = diet_strategy, y = log(MeanGroupSize))) +
   theme(axis.text.x = element_text(angle = 90))
 
 p
+
 ```
 
 **Do frugivores live in larger groups than folivores?**
 
-No. Frugivores live in smaller groups than foliveres.
+Yes, based on the boxplot frugivores tend to live in larger groups than folivores.
 
 ***8***
 ```{r}
@@ -160,6 +143,5 @@ s <- mutate(d, Binomial = paste(Genus, Species, sep = " ")) %>%
      avg_BrainSize = mean(Brain_Size_Species_Mean, na.rm = TRUE),
      avg_BodyMass = mean(Body_mass_male_mean, na.rm = TRUE)) %>%
      arrange(avg_BrainSize)
-
 s
 ```
